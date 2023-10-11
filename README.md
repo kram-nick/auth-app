@@ -1,5 +1,6 @@
 # React Auth App
-[DEMO](https://auth-e0tjwwgv2-kram-nick.vercel.app/)
+- [DEMO](https://auth-e0tjwwgv2-kram-nick.vercel.app/)
+
 Application where you enter your login credentials and after sign in it redirects you to Main page where you could see greeting message!
 You can't go to Main Page without authorization and can't return to Login/Home Page without log out.
 

@@ -45,7 +45,7 @@ const Login = () => {
         className="flex flex-col gap-[15px] bg-[gray] w-[30%] border-[springgreen] border-[4px] rounded-[10px] p-[20px]"
       >
         <label className="flex flex-col gap-[5px]">
-          <span>Username</span>
+          <span>Email</span>
           <input
             type="email"
             placeholder="example@gmail.com"

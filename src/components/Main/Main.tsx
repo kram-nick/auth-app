@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
+import { decodeToken } from "react-jwt";
 
 const Main = () => {
   const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
-    const data = localStorage.getItem(process.env.REACT_APP_TOKEN_KEY);
-    if (data) {
-      setUsername(data);
+    const dataToken = localStorage.getItem(process.env.REACT_APP_TOKEN_KEY);
+
+    if (dataToken) {
+      const decoded: any = decodeToken(dataToken);
+      setUsername(decoded.username);
     }
   }, []);
 

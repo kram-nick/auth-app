@@ -5,7 +5,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const LogOut = () => {
-    localStorage.clear();
+    localStorage.removeItem(process.env.REACT_APP_TOKEN_KEY);
     navigate("/");
     toast.error("Log out!");
   };

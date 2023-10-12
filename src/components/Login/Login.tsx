@@ -3,12 +3,13 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { Auth } from "../../core/models/auth";
 import { useNavigate } from "react-router-dom";
+import jwt from "jsonwebtoken";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const valueFormValidationSchema = Yup.object().shape({
-    username: Yup.string().required("Field is required"),
+    email: Yup.string().required("Field is required").email("Invalid email"),
     password: Yup.string()
       .required("Field is required")
       .min(8, "Min 8 characters")
@@ -16,21 +17,23 @@ const Login = () => {
   });
 
   const formikForm = useFormik<{
-    username: string;
+    email: string;
     password: string;
   }>({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     validationSchema: valueFormValidationSchema,
     onSubmit: async (values: any) => {
-      HandleSubmitForm(values);
+      HandleSubmitForm();
     },
   });
 
-  const HandleSubmitForm = (values: Auth) => {
-    localStorage.setItem(process.env.REACT_APP_TOKEN_KEY, values.username);
+  const HandleSubmitForm = () => {
+    const jwtToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXIiLCJpYXQiOjQzNDMzMzQ0NDd9.ny91FG9lk70HMqzgYMQmr43aBZdqn233xZT2Wl2oPdY";
+    localStorage.setItem(process.env.REACT_APP_TOKEN_KEY, jwtToken);
     toast.success("Successfully logged in!");
     navigate("/main");
   };
@@ -44,13 +47,14 @@ const Login = () => {
         <label className="flex flex-col gap-[5px]">
           <span>Username</span>
           <input
-            type="text"
+            type="email"
+            placeholder="example@gmail.com"
             className="border-[1px] outline-none rounded-[4px] pl-[3px]"
-            {...formikForm.getFieldProps("username")}
+            {...formikForm.getFieldProps("email")}
           />
-          {formikForm.errors.username && formikForm.touched.username && (
+          {formikForm.errors.email && formikForm.touched.email && (
             <p className="block text-[13px] leading-[20px] text-[crimson] font-semibold">
-              {formikForm.errors.username}
+              {formikForm.errors.email}
             </p>
           )}
         </label>
